@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Joc Asteroids</title>
+  </head>
+
+  <body>
+    <canvas id="AsteroidsProject" style="border: 1px solid #000000"></canvas>
+    <br />
+    <button class="btn btn-success" id="startNewGame">Începe Joc Nou</button>
+    <button class="btn btn-success" id="stopGame">Oprește Joc</button>
+    <button class="btn btn-success" id="showBestScores">
+      Afișează Cele Mai Bune Scoruri
+    </button>
+    <button class="btn btn-success" id="instructions">Instrucțiuni</button>
+
+    <!-- The element that will be displayed when the instructions button is pressed -->
+    <div class="modal fade" id="instructionsModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" style="display: inline-block">
+              Instrucțiuni
+            </h3>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              style="font-size: 30px"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modalBody">
+            <h4><b>Introducere</b></h4>
+            <h5>
+              Un joc poate fi început apăsând butonul <b>Începe Joc Nou</b>.
+            </h5>
+            <h5>
+              Jocul poate fi oprit apăsând butonul <b>Oprește Joc</b>. Scorul
+              obținut până în acel moment nu va fi salvat.
+            </h5>
+            <h5>Utilizatorul începe jocul cu trei vieți.</h5>
+            <h5>
+              Cele mai bune scoruri pot fi vizualizate apăsând butounl
+              <b>Afișează Cele Mai Bune Scoruri</b>.
+            </h5>
+            <h5>
+              La începutul fiecărui joc, utilizatorul trebuie să aleagă un nume.
+              Dacă acest pas este omis, numele va fi setat ca <b>Player</b>.
+              Apoi, jucătorul va alege un nivel de dificultate (ușor, normal sau
+              greu). Diferența dintre aceste niveluri constă în viteza de
+              mișcare a asteroizilor și de asemenea în modul de calcularea a
+              scorului. Dacă utilizatorul nu alege nivelul de dificultate,
+              acesta va fi setat la nivelul ușor.
+            </h5>
+            <h5>
+              Numărul asteroizilor este aleatoriu (între trei și zece).
+              Înăuntrul fiecărui asteroid este un număr aleatoriu (între 1 si
+              4). În funcție de acest număr, culoarea și mărimea asteroidului
+              diferă.
+            </h5>
+            <h5>
+              Jocul se oprește când toți asteroizii sunt distruși sau când
+              numărul de vieți ajunge la zero. Jucătorul va vedea un mesaj cu
+              scorul său și apoi vor fi afișate cele mai bune scoruri.
+            </h5>
+
+            <h4><b>Mișcarea navei folosind săgețile de la tastatură</b></h4>
+
+            <h5>
+              1) Mișcarea navei înainte prin apăsarea săgeții din dreapta.
+            </h5>
+            <img
+              src="media\movingForward.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\rightArrow.png" />
+            <h5>2) Mișcarea navei înapoi prin apăsarea săgeții din stânga.</h5>
+            <img
+              src="media\movingBackwards.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\leftArrow.png" />
+            <h5>3) Mișcarea navei în sus prin apăsarea săgeții sus.</h5>
+            <img
+              src="media\movingUpward.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\upArrow.png" />
+            <h5>4) Mișcarea navei în jos prin apăsarea săgeții jos.</h5>
+            <img
+              src="media\movingDownward.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\downArrow.png" />
+            <h4><b>Mișcarea navei folosind mouse-ul</b></h4>
+
+            <h5>
+              Nava poate fi mișcată făcând click dreapta în locația unde se
+              dorește a fi deplasată.
+            </h5>
+            <img
+              src="media\moveShipMouse.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\rightClick.png" />
+            <h4><b>Rotirea navei</b></h4>
+
+            <h5>
+              1) Nava poate fi rotită spre stânga apăsând butonul <b>z</b> al
+              tastaturii sau prin mișcarea în sus a roții mouse-ului.
+            </h5>
+            <img
+              src="media\rotateLeft.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\scrollUp.png" />
+
+            <h5>
+              2) Nava poate fi rotită spre dreapta apăsând butonul <b>c</b> al
+              tastaturii sau prin mișcarea în jos a roții mouse-ului.
+            </h5>
+            <img
+              src="media\rotateRight.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\scrollDown.png" />
+            <h4><b>Lansarea rachetei</b></h4>
+
+            <h5>
+              1) O rachetă poate fi lansată prin apăsarea butonului <b>x</b> de
+              la tastatură sau făcând click stânga.
+            </h5>
+            <img
+              src="media\rocketLaunch.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <img src="media\leftClick.png" />
+
+            <h5>
+              2) Când o rachetă lovește un asteroid, numărul aflat înăuntrul
+              asteroidului este micșorat cu 1, iar culoarea și mărimea
+              asteroidului sunt modificate conform noului număr. De asemenea,
+              scorul jucătorului este mărit în funcție de nivelul de dificultate
+              ales (cu 1 pentru ușor, cu 2 pentru normal și cu 3 pentru greu).
+            </h5>
+            <img
+              src="media\rocketAsteroid1.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <h4><b>Coliziune asteroizi</b></h4>
+
+            <h5>
+              Când doi asteroizi intră în coliziune, traiectoria lor este
+              modificată.
+            </h5>
+            <img
+              src="media\asteroidsCollision1.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <h4><b>Coliziune navă-asteroid</b></h4>
+
+            <h5>
+              Când un asteroid intră în coliziune cu nava, numărul de vieți este
+              micșorat cu 1, iar jocul este repornit.
+            </h5>
+            <img
+              src="media\asteroidShip.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+            <h4><b>Regenerare vieți</b></h4>
+
+            <h5>
+              Dacă un jucător reușește cinci lovituri fără ca nava să intre în
+              coliziune cu un asteroid, numărul de vieți este mărit cu 1 (acest
+              lucru se întâmplă dacă numărul de vieți este mai mic decât trei).
+            </h5>
+            <img
+              src="media\gainingLives.gif"
+              alt="Acesta este un gif, dar nu funcționează"
+            />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+              Închide
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
